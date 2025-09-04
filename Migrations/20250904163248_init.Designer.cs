@@ -12,7 +12,7 @@ using MyWeb.Data;
 namespace MyWeb.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250904155825_init")]
+    [Migration("20250904163248_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -67,7 +67,7 @@ namespace MyWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("LastDiv")
-                        .HasColumnType("dicemail(18,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("Marketcap")
                         .HasColumnType("bigint");
@@ -77,7 +77,7 @@ namespace MyWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Purchase")
-                        .HasColumnType("dicemail(18,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Symbol")
                         .IsRequired()

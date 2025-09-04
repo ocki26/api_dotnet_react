@@ -11,9 +11,9 @@ namespace MyWeb.Models
          public int Id { get; set; }
         public string Symbol { get; set; } = string.Empty;
         public string MyCompanyName { get; set; } = string.Empty;
-        [Column(TypeName = "dicemail(18,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Purchase { get; set; }
-        [Column(TypeName = "dicemail(18,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal LastDiv { get; set; }
         public string Industry { get; set; } = string.Empty;
         public long Marketcap { get; set; }

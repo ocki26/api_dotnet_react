@@ -19,8 +19,8 @@ namespace MyWeb.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MyCompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Purchase = table.Column<decimal>(type: "dicemail(18,2)", nullable: false),
-                    LastDiv = table.Column<decimal>(type: "dicemail(18,2)", nullable: false),
+                    Purchase = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LastDiv = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Industry = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Marketcap = table.Column<long>(type: "bigint", nullable: false)
                 },
