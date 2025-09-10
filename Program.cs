@@ -2,6 +2,8 @@ using Microsoft.OpenApi.Models;
 using MyWeb.Data;
 using Microsoft.OpenApi.Services;
 using Microsoft.EntityFrameworkCore;
+using MyWeb.Interfaces;
+using MyWeb.Repository;
 
 
 
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
