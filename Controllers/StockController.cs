@@ -8,6 +8,7 @@ using MyWeb.DTO.STOCK;
 using MyWeb.Mappers;
 using Microsoft.EntityFrameworkCore;
 using MyWeb.Interfaces;
+using MyWeb.Helpers;
 
 namespace MyWeb.Controllers
 {
@@ -28,13 +29,13 @@ namespace MyWeb.Controllers
             // Constructor logic here
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var stocks = await _StockRepo.GetAllAsync();
+            var stocks = await _StockRepo.GetAllAsync(query);
             var stockDto = stocks.Select(s => s.ToStockDto());
             return Ok(stockDto);
         }
