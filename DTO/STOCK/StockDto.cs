@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyWeb.DTO.Comment;
 namespace MyWeb.DTO.STOCK
 {
     public class StockDto
@@ -14,6 +15,6 @@ namespace MyWeb.DTO.STOCK
         public decimal LastDiv { get; set; }
         public string Industry { get; set; } = string.Empty;
         public long Marketcap { get; set; }
-     
+        public List<CommentDto> Comments{ get; set; }
     }
 }

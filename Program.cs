@@ -4,6 +4,9 @@ using Microsoft.OpenApi.Services;
 using Microsoft.EntityFrameworkCore;
 using MyWeb.Interfaces;
 using MyWeb.Repository;
+using Microsoft.CodeAnalysis.Options;
+using System.Security.Cryptography.Xml;
+using Newtonsoft.Json;
 
 
 
@@ -17,6 +20,11 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddControllers().AddNewtonsoftJson(option =>
+{
+    option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo

@@ -20,6 +20,7 @@ namespace MyWeb.Mappers
                 LastDiv = stockModel.LastDiv,
                 Industry = stockModel.Industry,
                 Marketcap = stockModel.Marketcap,
+                Comments = stockModel.Comments.Select(c=>c.ToCommentDto()).ToList()
             };
         }
         public static Stock ToStockCreateDTO(this CreateStockRequestDto StockDto ) {
@@ -31,6 +32,7 @@ namespace MyWeb.Mappers
                 LastDiv = StockDto.LastDiv,
                 Industry = StockDto.Industry,
                 Marketcap = StockDto.Marketcap,
+               
             };
         }
     }
