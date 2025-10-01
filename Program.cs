@@ -7,6 +7,10 @@ using MyWeb.Repository;
 using Microsoft.CodeAnalysis.Options;
 using System.Security.Cryptography.Xml;
 using Newtonsoft.Json;
+using MyWeb.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 
 
@@ -19,6 +23,32 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddIdentity<AppUsers, IdentityRole>(Option =>
+{
+    Option.Password.RequireDigit = true;
+    Option.Password.RequireLowercase = true;
+    Option.Password.RequireUppercase = true;
+    Option.Password.RequireNonAlphanumeric = true;
+    Option.Password.RequiredLength = 12;
+}).AddEntityFrameworkStores<ApplicationDBContext>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = options.DefaultChallengeScheme = options.DefaultForbidScheme = options.DefaultScheme = options.DefaultSignInScheme = options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(Option => {
+    Option.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(
+            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:Singningkey"])
+        )
+
+    };
+});
+
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddControllers().AddNewtonsoftJson(option =>
@@ -43,6 +73,8 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     c.RoutePrefix = string.Empty; // Mở swagger ngay tại http://localhost:xxxx
 });
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
